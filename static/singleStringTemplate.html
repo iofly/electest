@@ -1,14 +1,14 @@
 
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Enter String</h3>
+        <div class="modal-header modal-section">
+            <h3 class="modal-title" id="modal-title">{{formvars.DialogTitle}}</h3>
         </div>
-        <div class="modal-body" id="modal-body">
+        <div class="modal-body modal-section" id="modal-body">
  
  
 
-			<div class="form-group">
-				<label for="usr">String:</label>
-				<input type="text" ng-model="string1" class="form-control">
+			<div class="form-group" ng-repeat="field in formvars.StringsRequired">
+				<label for="usr">{{field.Label}}</label>
+				<input type="text" ng-model="field.Value" class="form-control">
 			</div>
 
 
@@ -16,11 +16,8 @@
 
 
 
-
-
-    
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <div class="modal-footer modal-section">
+            <button class="btn btn-primary" type="button" ng-click="save()">OK</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
