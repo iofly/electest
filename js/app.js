@@ -2,11 +2,6 @@ var rapidApp = angular.module('ng-rapidapp', ['ui.bootstrap', 'ui.bootstrap.moda
 
 });
 
-
-
-
-
-
 var ModalInstanceCtrl = function ($scope, $uibModalInstance, formvarsParam) {
 
     $scope.ModalResultModal = {};
@@ -22,25 +17,7 @@ var ModalInstanceCtrl = function ($scope, $uibModalInstance, formvarsParam) {
         $scope.ModalResultModal = 1;
         $uibModalInstance.close()
     };
-
-
-
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -85,8 +62,6 @@ rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce) 
 	$scope.showRoomRateDetailsModal = function ($formvars) {
 
 
-
-
 		var modalInstance = $uibModal.open({
 			templateUrl: $sce.trustAsResourceUrl('./static/singleStringTemplate.html'),
 			controller: ModalInstanceCtrl,
@@ -116,87 +91,6 @@ rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce) 
 			}
 		});
 	};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
