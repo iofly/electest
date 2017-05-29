@@ -25,10 +25,21 @@ body{
     margin-right: 5px;
 }
 
+.panel-body{
+    min-height: 40px;
+    padding: 5px;
+}
 
+.btnAction{
+   
+}
+.buttonMenuContainer{
+   margin-bottom: 5px;
+}
 
-
-
+.tblToolBar{
+    float: left;
+}
 
 
 

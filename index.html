@@ -70,62 +70,203 @@
 		
 		<uib-tab index="0">
 			<uib-tab-heading>
-				<i class="glyphicon glyphicon-edit"></i> Edit 1
+				<i class="glyphicon glyphicon-edit"></i> Edit
 			</uib-tab-heading>
 			<div class="panel panel-default form-group">
 				<div class="panel-body">
 
-					<div class="dropdown buttonMenuContainer">
-						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							DeleteStringAndAfter<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-								<li><a href="#" ng-click="showGetSingleStringModal()">1 &gt;&gt; 1</a></li>
-								<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">1 &gt;&gt; 2</a></li>
-								<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">2 &gt;&gt; 1</a></li>
-								<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">2 &gt;&gt; 2</a></li>
-						</ul>
-					</div>
-
-					<div class="dropdown buttonMenuContainer">
-						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							Action 2<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-						</ul>
-					</div>
-
-					<div class="dropdown buttonMenuContainer">
-						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							Action 3<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-						</ul>
-					</div>
-
-					<div class="dropdown buttonMenuContainer">
-						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							Action 4<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu4">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-						</ul>
-					</div>
-
+					
+						
+							
+								<div class="dropdown buttonMenuContainer">
+									<button class="btn btn-primary btn-sm btnAction dropdown-toggle" type="button" id="dropdownMenuTrim" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Trim<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuTrim">
+											<li><a href="#" ng-click="trimStrings(1,1);">Trim 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="trimStrings(1,2);">Trim 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="trimStrings(2,1);">Trim 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="trimStrings(2,2);">Trim 2 &gt;&gt; 2</a></li>
+									</ul>
+								</div>
+							
+								<div class="dropdown buttonMenuContainer">
+									<button class="btn btn-primary btn-sm btnAction dropdown-toggle" type="button" id="dropdownMenuSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Sort<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuSort">
+											<li><a href="#" ng-click="sortLines(1, 1, 1);">Ascending 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="sortLines(1, 1, 2);">Ascending 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="sortLines(1, 2, 1);">Ascending 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="sortLines(1, 2, 2);">Ascending 2 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="sortLines(2, 1, 1);">Descending 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="sortLines(2, 1, 2);">Descending 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="sortLines(2, 2, 1);">Descending 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="sortLines(2, 2, 2);">Descending 2 &gt;&gt; 2</a></li>
+									</ul>
+								</div>
+							
+								<div class="dropdown buttonMenuContainer">
+									<button class="btn btn-primary btn-sm btnAction dropdown-toggle" type="button" id="dropdownMenuUnq" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Uniquize<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuUnq">
+											<li><a href="#" ng-click="uniquizeLines(1, 1)">Uniquize 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="uniquizeLines(1, 2);">Uniquize 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="uniquizeLines(2, 1);">Uniquize 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="uniquizeLines(2, 2);">Uniquize 2 &gt;&gt; 2</a></li>
+									</ul>
+								</div>
+							
+								<div class="dropdown buttonMenuContainer">
+									<button class="btn btn-primary btn-sm btnAction dropdown-toggle" type="button" id="dropdownMenuExtract" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Extract<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuExtract">
+											<li><a href="#" ng-click="extractLines(1, 1)">1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="extractLines(1, 2);">1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="extractLines(2, 1);">2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="extractLines(2, 2);">2 &gt;&gt; 2</a></li>
+									</ul>
+								</div>
+							
+								<div class="dropdown buttonMenuContainer">
+									<button class="btn btn-primary btn-sm btnAction dropdown-toggle" type="button" id="dropdownMenuStripHTML" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Strip HTML<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuStripHTML">
+											<li><a href="#" ng-click="stripHTML(1, 1)">Strip HTML 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="stripHTML(1, 2);">Strip HTML 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="stripHTML(2, 1);">Strip HTML 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="stripHTML(2, 2);">Strip HTML 2 &gt;&gt; 2</a></li>
+									</ul>
+								</div>
+							
+								<div class="dropdown buttonMenuContainer">
+									<button class="btn btn-primary btn-sm btnAction dropdown-toggle" type="button" id="dropdownMenuEncoding" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Encoding<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuEncoding">
+											<li><a href="#" ng-click="htmlEncode(1, 1)">HTML Encode 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="htmlEncode(1, 2);">HTML Encode 1 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="htmlDecode(1, 1)">HTML Decode 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="htmlDecode(1, 2);">HTML Decode 1 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="urlEncode(1, 1)">Url Encode 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="urlEncode(1, 2);">Url Encode 1 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="urlDecode(1, 1)">Url Decode 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="urlDecode(1, 2);">Url Decode 1 &gt;&gt; 2</a></li>
+									</ul>
+								</div>
+							
+								<div class="dropdown buttonMenuContainer">
+									<button class="btn btn-primary btn-sm btnAction dropdown-toggle" type="button" id="dropdownMenuAppToLines" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Append To Lines<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuAppToLines">
+											<li><a href="#" ng-click="showGetSingleStringModal()">Append 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Append 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Append 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Append 2 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="showGetSingleStringModal()">Prepend 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Prepend 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Prepend 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Prepend 2 &gt;&gt; 2</a></li>
+									</ul>
+								</div>
+							
+							
+								<div class="dropdown buttonMenuContainer">
+									<button class="btn btn-primary btn-sm btnAction dropdown-toggle" type="button" id="dropdownMenuTrim" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Del X Chars<span class="caret"></span>
+									</button><!-- first or last -->
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuTrim">
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete First X Chars 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete First X Chars 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete First X Chars 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete First X Chars 2 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete Last X Chars 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete Last X Chars 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete Last X Chars 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete Last X Chars 2 &gt;&gt; 2</a></li>
+									</ul>
+								</div>
+							
+								<div class="dropdown buttonMenuContainer">
+									<button class="btn btn-primary btn-sm btnAction dropdown-toggle" type="button" id="dropdownMenuTrim" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Del Partial Str<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuTrim">
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete Before Str 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete Before Str 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete Before Str 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete Before Str 2 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete After Str 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete After Str 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete After Str 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete After Str 2 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete string and Before 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete string and Before 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete string and Before 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete string and Before 2 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete string and After 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete string and After 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete string and After 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete string and After 2 &gt;&gt; 2</a></li>
+									</ul>
+								</div>
+							
+								<div class="dropdown buttonMenuContainer">
+									<button class="btn btn-primary btn-sm btnAction dropdown-toggle" type="button" id="dropdownMenuTrim" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Del Blank Lines<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuTrim">
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete Empty 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete Empty 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete Empty 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete Empty 2 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete Whitespace Lines 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete Whitespace Lines 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete Whitespace Lines 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete Whitespace Lines 2 &gt;&gt; 2</a></li>
+									</ul>
+								</div>
+							
+								<div class="dropdown buttonMenuContainer">
+									<button class="btn btn-primary btn-sm btnAction dropdown-toggle" type="button" id="dropdownMenuTrim" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Del by Content<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuTrim">
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete that contain 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete that contain 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete that contain 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete that contain 2 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete that don't contain 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete that don't contain 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete that don't contain 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete that don't contain 2 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete lines starting with 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete lines starting with 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete lines starting with 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete lines starting with 2 &gt;&gt; 2</a></li>
+											<li class="divider"></li>
+											<li><a href="#" ng-click="showGetSingleStringModal()">Delete lines ending with 1 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(1, 2);">Delete lines ending with 1 &gt;&gt; 2</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 1);">Delete lines ending with 2 &gt;&gt; 1</a></li>
+											<li><a href="#" ng-click="DeleteStringAndAfter(2, 2);">Delete lines ending with 2 &gt;&gt; 2</a></li>
+									</ul>
+								</div>
 
 				</div>
 			</div>
@@ -133,48 +274,17 @@
 
 		<uib-tab index="1">
 			<uib-tab-heading>
-				<i class="glyphicon glyphicon-edit"></i> Edit 2
+				<i class="glyphicon glyphicon-globe"></i> Web
 			</uib-tab-heading>
 			<div class="panel panel-default form-group">
 				<div class="panel-body">
-					<button class="btn btn-default">Action b1</button>
-					<button class="btn btn-default">Action b2</button>
-					<button class="btn btn-default">Action b3</button>
-					<button class="btn btn-default">Action b4</button>
-					<button class="btn btn-default">Action b5</button>
+
+
+
 				</div>
 			</div>
 		</uib-tab>
 
-		<uib-tab index="2">
-			<uib-tab-heading>
-				<i class="glyphicon glyphicon-edit"></i> Edit 3
-			</uib-tab-heading>
-			<div class="panel panel-default form-group">
-				<div class="panel-body">
-					<button class="btn btn-default">Action b1</button>
-					<button class="btn btn-default">Action b2</button>
-					<button class="btn btn-default">Action b3</button>
-					<button class="btn btn-default">Action b4</button>
-					<button class="btn btn-default">Action b5</button>
-				</div>
-			</div>
-		</uib-tab>
-
-		<uib-tab index="3">
-			<uib-tab-heading>
-				<i class="glyphicon glyphicon-edit"></i> Edit 4
-			</uib-tab-heading>
-			<div class="panel panel-default form-group">
-				<div class="panel-body">
-					<button class="btn btn-default">Action b1</button>
-					<button class="btn btn-default">Action b2</button>
-					<button class="btn btn-default">Action b3</button>
-					<button class="btn btn-default">Action b4</button>
-					<button class="btn btn-default">Action b5</button>
-				</div>
-			</div>
-		</uib-tab>
 
 	</uib-tabset>
 
