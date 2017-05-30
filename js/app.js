@@ -8,7 +8,17 @@ function ModalInstanceController($scope, $uibModalInstance, formvars) {
         $scope.formvars = formvars;
 
         $scope.save = function() {
-            console.log("saving: frmvars = " + JSON.stringify($scope.formvars));
+            //console.log("saving: formvars = " + JSON.stringify($scope.formvars));
+
+            if(formvars.Instruction=='AppendToLines')
+            {
+                formvars.scopeObj.appendToLines_String(formvars.EditorIndexSource, formvars.EditorIndexTarget, formvars.StringsRequired[0].Value);
+            }
+            else if(formvars.Instruction=='PrependToLines')
+            {
+                formvars.scopeObj.prependToLines_String(formvars.EditorIndexSource, formvars.EditorIndexTarget, formvars.StringsRequired[0].Value);
+            }
+
             $uibModalInstance.close('ok');
         };
 
@@ -16,11 +26,12 @@ function ModalInstanceController($scope, $uibModalInstance, formvars) {
             console.log("Cancel");
             $uibModalInstance.dismiss('cancel');
         };
+
 }
 
 
 
-rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce) {
+rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce, $window) {
 
     $scope.editorText1 = "";
     $scope.editorText2 = "";
@@ -131,29 +142,71 @@ rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce) 
         if($editorIndex1 == 1) txt1 = $scope.editorText1;
         else txt1 = $scope.editorText2;
 
-        var elm = document.createElement("div");
-        elm.innerText = elm.textContent = txt1;
-        txt1 = elm.innerHTML;
-        delete elm;
+        txt1 = $('<div/>').text(text).html();
+
         if($editorIndex2 == 1) $scope.editorText1 = txt1;
         else $scope.editorText2 = txt1;
     };
 
     $scope.htmlDecode = function ($editorIndex1, $editorIndex2) {
+        var txt1=null;
+        if($editorIndex1 == 1) txt1 = $scope.editorText1;
+        else txt1 = $scope.editorText2;
 
+        txt1 = $('<div/>').html(txt1).text();
+
+        if($editorIndex2 == 1) $scope.editorText1 = txt1;
+        else $scope.editorText2 = txt1;
     };
 
     $scope.urlEncode = function ($editorIndex1, $editorIndex2) {
+        console.log('urlEncode Start...');
+        var txt1=null;
+        if($editorIndex1 == 1) txt1 = $scope.editorText1;
+        else txt1 = $scope.editorText2;
 
+        console.log('urlEncode txt1='+txt1);
+
+        txt1 = encodeURIComponent(txt1);
+        console.log('urlEncode txt1='+txt1);
+        if($editorIndex2 == 1) $scope.editorText1 = txt1;
+        else $scope.editorText2 = txt1;
     };
 
     $scope.urlDecode = function ($editorIndex1, $editorIndex2) {
+        var txt1=null;
+        if($editorIndex1 == 1) txt1 = $scope.editorText1;
+        else txt1 = $scope.editorText2;
 
+        txt1 = decodeURIComponent(txt1);
+
+        if($editorIndex2 == 1) $scope.editorText1 = txt1;
+        else $scope.editorText2 = txt1;
     };
 
+    $scope.appendToLines = function ($editorIndex1, $editorIndex2) {
+       var formvars = {};
+       formvars.Instruction = "AppendToLines";
+       formvars.DialogTitle = "Append To Lines";
+       formvars.EditorIndexSource = $editorIndex1;
+       formvars.EditorIndexTarget = $editorIndex2;
+       formvars.StringsRequired = [{Label: "Text to append:", Value: ""}];
+       formvars.scopeObj = {};
+       formvars.scopeObj.appendToLines_String = $scope.appendToLines_String;
+       $scope.showGetVarsModal(formvars);
+    };
     
-    
-    
+    $scope.prependToLines = function ($editorIndex1, $editorIndex2) {
+       var formvars = {};
+       formvars.Instruction = "PrependToLines";
+       formvars.DialogTitle = "Prepend To Lines";
+       formvars.EditorIndexSource = $editorIndex1;
+       formvars.EditorIndexTarget = $editorIndex2;
+       formvars.StringsRequired = [{Label: "Text to prepend:", Value: ""}];
+       formvars.scopeObj = {};
+       formvars.scopeObj.prependToLines_String = $scope.prependToLines_String;
+       $scope.showGetVarsModal(formvars);
+    };
 
 
 
@@ -262,6 +315,44 @@ rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce) 
         };
 
         
+        $scope.appendToLines_String = function ($editorIndex1, $editorIndex2, $appendText) {
+           
+            var txt1=null;
+            if($editorIndex1 == 1) txt1 = $scope.editorText1;
+            else txt1 = $scope.editorText2;
 
+            var strings = txt1.toStrings();
+
+            var n=0;
+            for(n=0;n<strings.length;n++)
+            {
+                strings[n] = strings[n] + $appendText;
+            }
+
+            txt1 = strings.join("\n");
+
+            if($editorIndex2 == 1) $scope.editorText1 = txt1;
+            else $scope.editorText2 = txt1;
+        };
+
+        $scope.prependToLines_String = function ($editorIndex1, $editorIndex2, $prependText) {
+
+            var txt1=null;
+            if($editorIndex1 == 1) txt1 = $scope.editorText1;
+            else txt1 = $scope.editorText2;
+
+            var strings = txt1.toStrings();
+
+            var n=0;
+            for(n=0;n<strings.length;n++)
+            {
+                strings[n] = $prependText + strings[n];
+            }
+
+            txt1 = strings.join("\n");
+
+            if($editorIndex2 == 1) $scope.editorText1 = txt1;
+            else $scope.editorText2 = txt1;
+        };
 
 });
