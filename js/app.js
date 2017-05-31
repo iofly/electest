@@ -7,37 +7,21 @@ function ModalInstanceController($scope, $uibModalInstance, formvars) {
 
         $scope.formvars = formvars;
 
-        
-
         $scope.save = function() {
-            //console.log("saving: formvars = " + JSON.stringify($scope.formvars));
 
-            if(formvars.Instruction=='AppendToLines'){
+            var singleStringInstructionSet = ["AppendToLines", "PrependToLines", "DeleteBeforeStr", "DeleteAfterStr", 
+                                                "DeleteStrAndBeforeStr", "DeleteStrAndAfterStr", "DeleteLinesThatStartWith", 
+                                                "DeleteLinesThatEndWith"];
+
+            var singleIntegerInstructionSet = ["DeleteXCharsFromEnd", "DeleteXCharsFromBeginning"];
+
+            if(singleStringInstructionSet.indexOf(formvars.Instruction)>=0){
                 formvars.scopeObj.method(formvars.EditorIndexSource, formvars.EditorIndexTarget, formvars.StringsRequired[0].Value);
             }
-            else if(formvars.Instruction=='PrependToLines'){
-                formvars.scopeObj.method(formvars.EditorIndexSource, formvars.EditorIndexTarget, formvars.StringsRequired[0].Value);
-            }
-            else if(formvars.Instruction=='DeleteXCharsFromEnd'){
-                var number = parseInt(formvars.StringsRequired[0].Value);
+            else if(singleIntegerInstructionSet.indexOf(formvars.Instruction)>=0){
                 formvars.scopeObj.method(formvars.EditorIndexSource, formvars.EditorIndexTarget, number);
             }
-            else if(formvars.Instruction=='DeleteXCharsFromBeginning'){
-                var number = parseInt(formvars.StringsRequired[0].Value);
-                formvars.scopeObj.method(formvars.EditorIndexSource, formvars.EditorIndexTarget, number);
-            }
-            else if(formvars.Instruction=='DeleteBeforeStr'){
-                formvars.scopeObj.method(formvars.EditorIndexSource, formvars.EditorIndexTarget, formvars.StringsRequired[0].Value);
-            }
-            else if(formvars.Instruction=='DeleteAfterStr'){
-                formvars.scopeObj.method(formvars.EditorIndexSource, formvars.EditorIndexTarget, formvars.StringsRequired[0].Value);
-            }
-            else if(formvars.Instruction=='DeleteStrAndBeforeStr'){
-                formvars.scopeObj.method(formvars.EditorIndexSource, formvars.EditorIndexTarget, formvars.StringsRequired[0].Value);
-            }
-            else if(formvars.Instruction=='DeleteStrAndAfterStr'){
-                formvars.scopeObj.method(formvars.EditorIndexSource, formvars.EditorIndexTarget, formvars.StringsRequired[0].Value);
-            }
+           
 
             $uibModalInstance.close('ok');
         };
@@ -61,24 +45,9 @@ rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce, 
     };
 
     $scope.DeleteStringAndAfter = function ($editorIndex1, $editorIndex2) {
-        var txt1=null;
-
-        if($editorIndex1 == 1){
-            txt1 = $scope.editorText1;
-        }
-        else {
-            txt1 = $scope.editorText2;
-        }
-
+        var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
         txt1 = $scope.TrimStringsRight_String(txt1, "blah");
-
-        if($editorIndex2 == 1){
-            $scope.editorText1 = txt1;
-        }
-        else 
-        {
-            $scope.editorText2 = txt1;
-        }
+        $scope.SetTargetText($editorIndex1, $editorIndex2, txt1);
     };
 
     $scope.showGetSingleStringModal = function ($editorIndexSrc, $editorIndexTarget) {
@@ -107,39 +76,22 @@ rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce, 
 	};
 
     $scope.trimStrings = function ($editorIndex1, $editorIndex2) {
-
-        var txt1=null;
-        if($editorIndex1 == 1) txt1 = $scope.editorText1;
-        else txt1 = $scope.editorText2;
-
+        var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
         txt1 = $scope.TrimStrings_String(txt1);
-
-        if($editorIndex2 == 1) $scope.editorText1 = txt1;
-        else $scope.editorText2 = txt1;
+        $scope.SetTargetText($editorIndex1, $editorIndex2, txt1);
     };
 
     $scope.sortLines = function ($sortOrder, $editorIndex1, $editorIndex2) {
         $sortOrder = $sortOrder || 1;
-        var txt1=null;
-        if($editorIndex1 == 1) txt1 = $scope.editorText1;
-        else txt1 = $scope.editorText2;
-
+        var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
         txt1 = $scope.SortStrings_String(txt1, $sortOrder);
-
-        if($editorIndex2 == 1) $scope.editorText1 = txt1;
-        else $scope.editorText2 = txt1;
+        $scope.SetTargetText($editorIndex1, $editorIndex2, txt1);
     };
 
     $scope.uniquizeLines = function ($editorIndex1, $editorIndex2) {
-        var txt1=null;
-        if($editorIndex1 == 1) txt1 = $scope.editorText1;
-        else txt1 = $scope.editorText2;
-
+        var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
         txt1 = $scope.UniquizeStrings_String(txt1);
-
-        if($editorIndex2 == 1) $scope.editorText1 = txt1;
-        else $scope.editorText2 = txt1;
-
+        $scope.SetTargetText($editorIndex1, $editorIndex2, txt1);
     };
 
     $scope.extractLines = function ($editorIndex1, $editorIndex2) {
@@ -147,62 +99,89 @@ rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce, 
     };
 
     $scope.stripHTML = function ($editorIndex1, $editorIndex2) {
-        var txt1=null;
-        if($editorIndex1 == 1) txt1 = $scope.editorText1;
-        else txt1 = $scope.editorText2;
-
+        var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
         txt1 = $scope.StripHTML(txt1);
-        console.log("stripHTML : " + txt1);
-        if($editorIndex2 == 1) $scope.editorText1 = txt1;
-        else $scope.editorText2 = txt1;
+        $scope.SetTargetText($editorIndex1, $editorIndex2, txt1);
     };
 
     $scope.htmlEncode = function ($editorIndex1, $editorIndex2) {
-        var txt1=null;
-        if($editorIndex1 == 1) txt1 = $scope.editorText1;
-        else txt1 = $scope.editorText2;
-
+        var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
         txt1 = $('<div/>').text(text).html();
-
-        if($editorIndex2 == 1) $scope.editorText1 = txt1;
-        else $scope.editorText2 = txt1;
+        $scope.SetTargetText($editorIndex1, $editorIndex2, txt1);
     };
 
     $scope.htmlDecode = function ($editorIndex1, $editorIndex2) {
-        var txt1=null;
-        if($editorIndex1 == 1) txt1 = $scope.editorText1;
-        else txt1 = $scope.editorText2;
-
+        var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
         txt1 = $('<div/>').html(txt1).text();
-
-        if($editorIndex2 == 1) $scope.editorText1 = txt1;
-        else $scope.editorText2 = txt1;
+        $scope.SetTargetText($editorIndex1, $editorIndex2, txt1);
     };
 
     $scope.urlEncode = function ($editorIndex1, $editorIndex2) {
-        console.log('urlEncode Start...');
-        var txt1=null;
-        if($editorIndex1 == 1) txt1 = $scope.editorText1;
-        else txt1 = $scope.editorText2;
-
-        console.log('urlEncode txt1='+txt1);
-
+        var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
         txt1 = encodeURIComponent(txt1);
-        console.log('urlEncode txt1='+txt1);
-        if($editorIndex2 == 1) $scope.editorText1 = txt1;
-        else $scope.editorText2 = txt1;
+        $scope.SetTargetText($editorIndex1, $editorIndex2, txt1);
     };
 
     $scope.urlDecode = function ($editorIndex1, $editorIndex2) {
-        var txt1=null;
-        if($editorIndex1 == 1) txt1 = $scope.editorText1;
-        else txt1 = $scope.editorText2;
-
+        var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
         txt1 = decodeURIComponent(txt1);
-
-        if($editorIndex2 == 1) $scope.editorText1 = txt1;
-        else $scope.editorText2 = txt1;
+        $scope.SetTargetText($editorIndex1, $editorIndex2, txt1);
     };
+
+    $scope.removeWhiteSpaceLines = function ($editorIndex1, $editorIndex2) {
+        var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
+
+        var strings = txt1.toStrings();
+        var n=0;
+        for(n=0;n<strings.length;n++)
+        {
+            if(strings[n].trim().length==0)
+                strings.splice(n,1);
+        }
+        txt1 = strings.join("\n");
+
+        $scope.SetTargetText($editorIndex1, $editorIndex2, txt1);
+    };
+
+    $scope.removeEmptyLines = function ($editorIndex1, $editorIndex2) {
+        var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
+
+        var strings = txt1.toStrings();
+        var n=0;
+        for(n=0;n<strings.length;n++)
+        {
+            if(strings[n].length==0)
+                strings.splice(n,1);
+        }
+        txt1 = strings.join("\n");
+
+        $scope.SetTargetText($editorIndex1, $editorIndex2, txt1);
+    };
+
+
+
+
+    //Editor Get/Set methods
+    $scope.GetSourceText = function($editorIndex1, $editorIndex2){
+        if($editorIndex1 == 1) 
+            return $scope.editorText1;
+        else 
+            return $scope.editorText2;
+    }
+
+    $scope.SetTargetText = function($editorIndex1, $editorIndex2, $text){
+        if($editorIndex2 == 1) 
+            $scope.editorText1 = $text;
+        else 
+            $scope.editorText2 = $text;
+    }
+
+
+
+
+
+
+    //Events that open a dialog
 
     $scope.appendToLines = function ($editorIndex1, $editorIndex2) {
        var formvars = {};
@@ -300,40 +279,56 @@ rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce, 
        $scope.showGetVarsModal(formvars);
     };
 
-    $scope.removeWhiteSpaceLines = function ($editorIndex1, $editorIndex2) {
-        var txt1=null;
-        if($editorIndex1 == 1) txt1 = $scope.editorText1;
-        else txt1 = $scope.editorText2;
-
-        var strings = txt1.toStrings();
-        var n=0;
-        for(n=0;n<strings.length;n++)
-        {
-            if(strings[n].trim().length==0)
-                strings.splice(n,1);
-        }
-        txt1 = strings.join("\n");
-
-        if($editorIndex2 == 1) $scope.editorText1 = txt1;
-        else $scope.editorText2 = txt1;
+    $scope.deleteLinesThatStartWith = function ($editorIndex1, $editorIndex2) {
+        console.log("deleteLinesThatStartWith start...");
+       var formvars = {};
+       formvars.Instruction = "DeleteLinesThatStartWith";
+       formvars.DialogTitle = "Delete Lines That Start With";
+       formvars.EditorIndexSource = $editorIndex1;
+       formvars.EditorIndexTarget = $editorIndex2;
+       formvars.StringsRequired = [{Label: "Text:", Value: "", Format: "string"}];
+       formvars.scopeObj = {};
+       formvars.scopeObj.method = $scope.deleteLinesThatStartWith_String;
+       $scope.showGetVarsModal(formvars);
     };
 
-    $scope.removeEmptyLines = function ($editorIndex1, $editorIndex2) {
-        var txt1=null;
-        if($editorIndex1 == 1) txt1 = $scope.editorText1;
-        else txt1 = $scope.editorText2;
+    $scope.deleteLinesThatEndWith = function ($editorIndex1, $editorIndex2) {
+       console.log("deleteLinesThatEndWith start...");
+       var formvars = {};
+       formvars.Instruction = "DeleteLinesThatEndWith";
+       formvars.DialogTitle = "Delete Lines That End With";
+       formvars.EditorIndexSource = $editorIndex1;
+       formvars.EditorIndexTarget = $editorIndex2;
+       formvars.StringsRequired = [{Label: "Text:", Value: "", Format: "string"}];
+       formvars.scopeObj = {};
+       formvars.scopeObj.method = $scope.deleteLinesThatEndWith_String;
+       $scope.showGetVarsModal(formvars);
+    };
 
-        var strings = txt1.toStrings();
-        var n=0;
-        for(n=0;n<strings.length;n++)
-        {
-            if(strings[n].length==0)
-                strings.splice(n,1);
-        }
-        txt1 = strings.join("\n");
+    $scope.deleteLinesThatContain = function ($editorIndex1, $editorIndex2) {
+        console.log("deleteLinesThatContain start...");
+       var formvars = {};
+       formvars.Instruction = "DeleteLinesThatContain";
+       formvars.DialogTitle = "Delete Lines That Contain";
+       formvars.EditorIndexSource = $editorIndex1;
+       formvars.EditorIndexTarget = $editorIndex2;
+       formvars.StringsRequired = [{Label: "Text:", Value: "", Format: "string"}];
+       formvars.scopeObj = {};
+       formvars.scopeObj.method = $scope.deleteLinesThatContain_String;
+       $scope.showGetVarsModal(formvars);
+    };
 
-        if($editorIndex2 == 1) $scope.editorText1 = txt1;
-        else $scope.editorText2 = txt1;
+    $scope.deleteLinesThatDontContain = function ($editorIndex1, $editorIndex2) {
+        console.log("deleteLinesThatDontContain start...");
+       var formvars = {};
+       formvars.Instruction = "DeleteLinesThatDontContain";
+       formvars.DialogTitle = "Delete Lines That Don't Contain";
+       formvars.EditorIndexSource = $editorIndex1;
+       formvars.EditorIndexTarget = $editorIndex2;
+       formvars.StringsRequired = [{Label: "Text:", Value: "", Format: "string"}];
+       formvars.scopeObj = {};
+       formvars.scopeObj.method = $scope.deleteLinesThatDontContain_String;
+       $scope.showGetVarsModal(formvars);
     };
 
 
@@ -344,19 +339,6 @@ rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce, 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
 
         $scope.TrimStringsRight_String = function ($s, $substring) {
@@ -633,6 +615,114 @@ rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce, 
             else $scope.editorText2 = txt1;
         };
 
-        
+        $scope.deleteLinesThatStartWith_String = function ($editorIndex1, $editorIndex2, $textToFind) {
+
+            $textToFind = $textToFind||"unfindablez";
+
+            var txt1=null;
+            if($editorIndex1 == 1) txt1 = $scope.editorText1;
+            else txt1 = $scope.editorText2;
+
+            var strings = txt1.toStrings();
+            var n=0;
+            var index = -1;
+
+
+            for(n=strings.length-1;n>=0;n--)
+            {
+                index = strings[n].indexOf($textToFind);
+                if(index==0)
+                {
+                   strings.splice(n, 1);
+                } 
+            }
+
+            txt1 = strings.join("\n");
+
+            if($editorIndex2 == 1) $scope.editorText1 = txt1;
+            else $scope.editorText2 = txt1;
+        };
+
+        $scope.deleteLinesThatEndWith_String = function ($editorIndex1, $editorIndex2, $textToFind) {
+
+            $textToFind = $textToFind||"unfindablez";
+
+            var txt1=null;
+            if($editorIndex1 == 1) txt1 = $scope.editorText1;
+            else txt1 = $scope.editorText2;
+
+            var strings = txt1.toStrings();
+            var n=0;
+            var index = -1;
+            var test = "";
+
+            for(n=strings.length-1;n>=0;n--)
+            {
+                index = strings[n].indexOf($textToFind);
+                if(index>=0)
+                {
+                    //could be dupe, so check if at the end
+                    test = strings[n].substring(strings[n].length-$textToFind.length, strings[n].length);
+                    if(test==$textToFind)
+                    {
+                        strings.splice(n, 1);
+                    }
+                } 
+            }
+
+            txt1 = strings.join("\n");
+
+            if($editorIndex2 == 1) $scope.editorText1 = txt1;
+            else $scope.editorText2 = txt1;
+        };
+
+        $scope.deleteLinesThatContain_String = function ($editorIndex1, $editorIndex2, $textToFind) {
+
+            $textToFind = $textToFind||"unfindablez";
+            var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
+
+            var strings = txt1.toStrings();
+            var n=0;
+            var index = -1;
+            var test = "";
+
+            for(n=strings.length-1;n>=0;n--)
+            {
+                index = strings[n].indexOf($textToFind);
+                if(index>=0)
+                {
+                    strings.splice(n, 1);
+                } 
+            }
+
+            txt1 = strings.join("\n");
+
+            $scope.GetSourceText($editorIndex1, $editorIndex2, txt1);
+        };
+
+        $scope.deleteLinesThatDontContain_String = function ($editorIndex1, $editorIndex2, $textToFind) {
+
+            $textToFind = $textToFind||"unfindablez";
+            var txt1=$scope.GetSourceText($editorIndex1, $editorIndex2);
+
+            var strings = txt1.toStrings();
+            var n=0;
+            var index = -1;
+            var test = "";
+
+            for(n=strings.length-1;n>=0;n--)
+            {
+                index = strings[n].indexOf($textToFind);
+                if(index<0)
+                {
+                    strings.splice(n, 1);
+                } 
+            }
+
+            txt1 = strings.join("\n");
+
+            $scope.GetSourceText($editorIndex1, $editorIndex2, txt1);
+        };
+
 
 });
