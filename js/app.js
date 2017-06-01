@@ -81,7 +81,7 @@ rapidApp.controller("MainController", function ($scope, $http, $uibModal, $sce, 
             animation: true,
             ariaLabelledBy: 'modal-title-top',
             ariaDescribedBy: 'modal-body-top',
-            templateUrl: './static/singleStringTemplate.html',
+            templateUrl: './static/modalDialog.html',
             size: 'md',
             controller:ModalInstanceController,
                 resolve: {
